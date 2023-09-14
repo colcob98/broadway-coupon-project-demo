@@ -8,7 +8,7 @@ let useAwards = document.getElementById('use-awards');
 let collectAwards = document.getElementById('collect-awards');
 
 var urlParams = new URLSearchParams(window.location.search);
-var numEntries = (parseInt(urlParams.get('entries'))) * 100;
+var numEntries = (parseInt(urlParams.get('entries')));
 
 function updateCountdown() {
     loadingText.innerHTML = `Loading... <span id="countdown-display">${countdown}s</span>`;
@@ -54,7 +54,7 @@ function displayResults() {
     awardsNumber.textContent = lotteryResults.totalWinnings;
 }
 
-function miniLottery(numEntries) {
+function miniLottery() {
     // Define the probabilities and corresponding prizes
     const probabilities = [0.7, 0.1, 0.1, 0.05, 0.05];
     const prizes = [0, 1, 2, 3, 5];
@@ -94,7 +94,7 @@ function miniLottery(numEntries) {
 
 
 // Calculate the prize amounts for all entries
-lotteryResults = miniLottery(numEntries);
+lotteryResults = miniLottery();
 
 // Display the total winnings
 console.log(`Total Winnings: ${lotteryResults.totalWinnings} points`);

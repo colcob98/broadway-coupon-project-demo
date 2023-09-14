@@ -24,22 +24,23 @@ entryNum.addEventListener('input', function () {
     this.value = value;
 });
 
-// Add a submit event listener to the form
 entryForm.addEventListener('submit', function (event) {
-    // Check if the number of entries is empty or not a positive integer
-    if (!entryNumberInput.value || isNaN(entryNumberInput.value) || parseInt(entryNumberInput.value) <= 0) {
+    // Check if the number of entries is empty, not a positive integer, or doesn't have .00 as decimal places
+    const entryValue = entryNumberInput.value;
+    if (!entryValue || isNaN(entryValue) || !/^\d+\.00$/.test(entryValue) || parseFloat(entryValue) <= 0) {
         event.preventDefault(); // Block form submission
-        alert('Please enter a valid number of entries.');
+        alert('Please enter a valid, whole dollar amount (i.e. "1.00").');
     } else if (!acceptTermsCheckbox.checked) {
         event.preventDefault(); // Block form submission
         alert('Please accept the terms.');
     } else {
         event.preventDefault();
         numEntries = parseInt(entryNum.value);
-        window.location.href = `results.html?entries=${numEntries}`;
+        window.location.href = `results.html?entries=${numEntries * 100}`;
     }
-
 });
+
+
 
 function startTimer() {
     let timerDuration = 50;
