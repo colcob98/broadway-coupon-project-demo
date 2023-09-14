@@ -2,7 +2,7 @@
 const awardsContainer = document.querySelector('.awards-container');
 const loadingContainer = document.querySelector('.loading-container');
 const loadingText = document.getElementById('loading-text');
-let countdown = 5;
+let countdown = 4;
 
 let useAwards = document.getElementById('use-awards');
 let collectAwards = document.getElementById('collect-awards');
@@ -12,17 +12,19 @@ var numEntries = parseInt(urlParams.get('entries'));
 
 function updateCountdown() {
     loadingText.innerHTML = `Loading... <span id="countdown-display">${countdown}s</span>`;
-    countdown--;
 
-    if (countdown < 0) {
-        clearInterval(countdownInterval);
+    if (countdown < 1) {
         loadingContainer.style.display = 'none'; // Hide loading screen
         awardsContainer.style.display = 'block'; // Show results screen
         displayResults();
+    } else {
+        countdown--;
+        setTimeout(updateCountdown, 1000);
     }
 }
 
-const countdownInterval = setInterval(updateCountdown, 1000);
+updateCountdown();
+//const countdownInterval = setInterval(updateCountdown, 1000);
 
 // Define the lottery results object to store the results
 let lotteryResults = null;
@@ -95,7 +97,7 @@ function miniLottery(numEntries) {
 lotteryResults = miniLottery(numEntries);
 
 // Display the total winnings
-console.log(`Total Winnings: $${lotteryResults.totalWinnings}`);
+console.log(`Total Winnings: ${lotteryResults.totalWinnings} points`);
 console.log("Results for each entry:");
 
 var awardsNumber = document.getElementById('awards-number');
@@ -107,7 +109,7 @@ useAwards.addEventListener('click', function(event) {
 });
 
 function startTimer() {
-    let timerDuration = 10;
+    let timerDuration = 30;
     let timerInterval = setInterval(function() {
         timerDuration--;
 

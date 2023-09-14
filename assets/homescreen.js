@@ -25,7 +25,7 @@ entryForm.addEventListener('submit', function (event) {
 });
 
 function startTimer() {
-    let timerDuration = 30;
+    let timerDuration = 50;
     let timerInterval = setInterval(function() {
         timerDuration--;
 
