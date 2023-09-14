@@ -8,7 +8,7 @@ let useAwards = document.getElementById('use-awards');
 let collectAwards = document.getElementById('collect-awards');
 
 var urlParams = new URLSearchParams(window.location.search);
-var numEntries = parseInt(urlParams.get('entries'));
+var numEntries = (parseInt(urlParams.get('entries'))) * 100;
 
 function updateCountdown() {
     loadingText.innerHTML = `Loading... <span id="countdown-display">${countdown}s</span>`;
@@ -41,7 +41,7 @@ function displayResults() {
     }
     
     for (let i = 0; i < lotteryResults.entryResults.length; i++) {
-        console.log(`Entry ${i + 1}: $${lotteryResults.entryResults[i]}`);
+        console.log(`Entry ${i + 1}: ${lotteryResults.entryResults[i]} points`);
     }
 
     if (lotteryResults.totalWinnings === 0) {
