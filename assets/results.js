@@ -54,7 +54,7 @@ function displayResults() {
 
 function miniLottery(numEntries) {
     // Define the probabilities and corresponding prizes
-    const probabilities = [0.5, 0.2, 0.15, 0.1, 0.05];
+    const probabilities = [0.7, 0.1, 0.1, 0.05, 0.05];
     const prizes = [0, 1, 2, 3, 5];
 
     // Calculate the total probability (should sum to 1)
