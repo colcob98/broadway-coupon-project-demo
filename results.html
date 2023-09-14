@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <script
+    src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+    crossorigin="anonymous"
+  ></script>
+</head>
+<body class="results">
+    <div class="loading-container">
+        <img src="./assets/images/LoadingScreen.gif" alt="loading" class="loading-gif">
+        <div class="loading-text" id="loading-text">Loading... <span id="countdown-display">5s</span></div>
+    </div>
+    <div class="awards-container" hidden>
+        <img src="./assets/images/StarfieldSimulation-screensaver.gif" alt="space screen saver">
+        <div class="awards" id="awards">
+            <h1>Awards: <span id="awards-number"></span></h1>
+            <div id="options-section">
+                <div id="collect-awards">
+                    <p id="collect-awards-text">Collect Awards and Print Coupon</p>
+                </div>
+                <div id="use-awards">
+                    <p>Purchase more (Use awards for purchase)</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="end-screen" hidden>
+            <h1>Thank you for playing</h1>
+            <div id="return-home">
+                <p>Return Home</p>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="./assets/results.js"></script>
+</body>
+</html>

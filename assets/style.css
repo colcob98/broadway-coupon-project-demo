@@ -1,0 +1,196 @@
+.screensaver {
+    position: relative;
+    display: flex;
+}
+
+.screensaver img {
+    width: 100%;
+    height: auto;
+}
+
+.screensaver p {
+    text-align: center;
+    font-size: 4rem;
+    position: absolute;
+    color: yellow;
+    padding: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#collect {
+    top: 50%;
+}
+
+#win {
+    top: 30%;
+}
+
+.homescreen {
+    position: relative;
+    display: flex;
+}
+
+.homescreen .image-container {
+    position: relative;
+    width: 100%;
+}
+
+.homescreen img {
+    width: 100%;
+    height: auto;
+}
+
+.boxes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.entries,
+.terms,
+.submit {
+    width: 30%;
+    border: 2px solid yellow;
+    border-radius: 10%;
+    padding: 10px;
+    margin: 10px;
+}
+
+.entries p,
+.terms p {
+    color: yellow;
+    font-size: 2rem;
+}
+
+
+
+.loading-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: yellow;
+    font-size: 2rem;
+}
+
+.loading-gif {
+    width: 100%;
+}
+
+.loading-text {
+    position: absolute;
+    bottom: 20%; 
+    left: 50%; 
+    transform: translateX(-50%);
+    z-index: 1; 
+    font-size: 2rem; 
+    color: yellow;
+}
+
+.awards-container {
+    position: relative;
+    display: none;
+}
+
+.awards-container img {
+    width: 100%;
+    height: auto;
+}
+
+.awards {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    font-size: 4rem;
+    color: yellow;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+#awards-number {
+    font-size: 4rem;
+    color: yellow;
+}
+
+#options-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#collect-awards {
+    margin-top: 20px;
+}
+
+
+#collect-awards p,
+#use-awards p {
+    text-align: center;
+    font-size: 1.5rem;
+    color: yellow;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 5%;
+}
+
+#use-awards,
+#collect-awards {
+    border: 2px solid yellow;
+    border-radius: 10%;
+    padding: 10px;
+    margin: 10px;
+}
+
+#use-awards:hover,
+#collect-awards:hover {
+    cursor: pointer;
+} 
+
+#end-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    text-align: center;
+}
+
+#end-screen h1 {
+    font-size: 4rem;
+    color: yellow
+}
+
+#return-home {
+    text-align: center;
+    margin-top: 5%;
+    border: 2px solid yellow;
+    border-radius: 10%;
+}
+
+#return-home p {
+    color:yellow;
+    font-size: 1.5rem;
+}
+
+#return-home:hover {
+    cursor: pointer;
+}
