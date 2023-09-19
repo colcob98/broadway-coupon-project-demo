@@ -1,150 +1,193 @@
+const entryTable = [
+  { entries: 1, points: 2400 },
+  { entries: 2, points: 1199 },
+  { entries: 1, points: 300 },
+  { entries: 12, points: 200 },
+  { entries: 22, points: 150 },
+  { entries: 5, points: 100 },
+  { entries: 4, points: 90 },
+  { entries: 108, points: 80 },
+  { entries: 8, points: 75 },
+  { entries: 8, points: 70 },
+  { entries: 10, points: 60 },
+  { entries: 315, points: 50 },
+  { entries: 25, points: 45 },
+  { entries: 175, points: 40 },
+  { entries: 350, points: 30 },
+  { entries: 1150, points: 25 },
+  { entries: 1215, points: 20 },
+  { entries: 737, points: 15 },
+  { entries: 1375, points: 10 },
+  { entries: 7000, points: 5 },
+  { entries: 17000, points: 2 },
+  { entries: 23000, points: 1 },
+  { entries: 197477, points: 0 },
+];
+
+let arrayChances = JSON.parse(localStorage.getItem("arrayChances"));
+
+if (!arrayChances|| []) {
+  // If arrayChances doesn't exist in localStorage, create it
+  arrayChances = createArrayChances();
+  localStorage.setItem("arrayChances", JSON.stringify(arrayChances));
+}
+
 // Display a loading screen with countdown
-const awardsContainer = document.querySelector('.awards-container');
-const loadingContainer = document.querySelector('.loading-container');
-const loadingText = document.getElementById('loading-text');
+const awardsContainer = document.querySelector(".awards-container");
+const loadingContainer = document.querySelector(".loading-container");
+const loadingText = document.getElementById("loading-text");
 let countdown = 4;
 
-let useAwards = document.getElementById('use-awards');
-let collectAwards = document.getElementById('collect-awards');
+let useAwards = document.getElementById("use-awards");
+let collectAwards = document.getElementById("collect-awards");
 
 var urlParams = new URLSearchParams(window.location.search);
-var numEntries = (parseInt(urlParams.get('entries')));
+var numEntries = parseInt(urlParams.get("entries"));
 
 function updateCountdown() {
-    loadingText.innerHTML = `Loading... <span id="countdown-display">${countdown}s</span>`;
+  loadingText.innerHTML = `Loading... <span id="countdown-display">${countdown}s</span>`;
 
-    if (countdown < 1) {
-        loadingContainer.style.display = 'none'; // Hide loading screen
-        awardsContainer.style.display = 'block'; // Show results screen
-        displayResults();
-    } else {
-        countdown--;
-        setTimeout(updateCountdown, 1000);
-    }
+  if (countdown < 1) {
+    loadingContainer.style.display = "none"; // Hide loading screen
+    awardsContainer.style.display = "block"; // Show results screen
+    displayResults();
+  } else {
+    countdown--;
+    setTimeout(updateCountdown, 1000);
+  }
 }
 
 updateCountdown();
-//const countdownInterval = setInterval(updateCountdown, 1000);
+
+function createArrayChances() {
+  const newChances = [];
+
+  for (let i = 0; i < entryTable.length; i++) {
+    const { entries, points } = entryTable[i];
+
+    // Repeat the points value 'entries' number of times
+    for (let j = 0; j < entries; j++) {
+      newChances.push(points);
+    }
+  }
+
+  // Save newChances to localStorage
+
+  return newChances;
+}
+
+//createArrayChances();
+
+function randomlyChooseElements(numTimes) {
+  const randomElements = [];
+  let randomElementsTotal = 0;
+
+  if (numTimes <= arrayChances.length) {
+    for (let i = 0; i < numTimes; i++) {
+      const randomIndex = Math.floor(Math.random() * arrayChances.length);
+      const randomElement = arrayChances[randomIndex];
+      randomElements.push(randomElement);
+      randomElementsTotal += randomElement;
+
+      arrayChances.splice(randomIndex, 1);
+    }
+  } else if (numTimes > arrayChances.length) {
+    const remainder = numTimes - arrayChances.length;
+    for (let i = 0; i < arrayChances.length; i++) {
+      randomElements.push(arrayChances[i]);
+      randomElementsTotal += arrayChances[i];
+    }
+
+    createArrayChances();
+    for (let i = 0; i < remainder; i++) {
+      const randomIndex = Math.floor(Math.random() * arrayChances.length);
+      const randomElement = arrayChances[randomIndex];
+      randomElements.push(randomElement);
+      randomElementsTotal += randomElement;
+
+      arrayChances.splice(randomIndex, 1);
+    }
+  }
+
+  // Save the updated arrayChances to localStorage immediately after modifying it
+  localStorage.setItem("arrayChances", JSON.stringify(arrayChances));
+
+  return {
+    totalWinnings: randomElementsTotal,
+    entryResults: randomElements,
+  };
+}
 
 // Define the lottery results object to store the results
 let lotteryResults = null;
 
 function displayResults() {
+  if (lotteryResults === null) {
+    // Calculate the prize amounts for all entries and store the results
+    lotteryResults = randomlyChooseElements(numEntries);
+  }
 
-    if (lotteryResults === null) {
-        // Parse the URL to get the number of entries
-        const urlParams = new URLSearchParams(window.location.search);
-        const numEntries = parseInt(urlParams.get('entries'));
+  if (lotteryResults.totalWinnings === 0) {
+    useAwards.style.display = "none";
+    let collectAwardsText = document.getElementById("collect-awards-text");
+    collectAwardsText.textContent = "Print Coupon";
+  }
 
-        // Calculate the prize amounts for all entries and store the results
-        lotteryResults = miniLottery(numEntries);
-    }
-    
-    for (let i = 0; i < lotteryResults.entryResults.length; i++) {
-        console.log(`Entry ${i + 1}: ${lotteryResults.entryResults[i]} points`);
-    }
-
-    if (lotteryResults.totalWinnings === 0) {
-        useAwards.style.display = 'none';
-        let collectAwardsText = document.getElementById('collect-awards-text');
-        collectAwardsText.textContent = 'Print Coupon'
-    }
-
-    const awardsNumber = document.getElementById('awards-number');
-    awardsNumber.textContent = lotteryResults.totalWinnings;
+  const awardsNumber = document.getElementById("awards-number");
+  awardsNumber.textContent = lotteryResults.totalWinnings;
 }
-
-function miniLottery() {
-    // Define the probabilities and corresponding prizes
-    const probabilities = [0.7, 0.1, 0.1, 0.05, 0.05];
-    const prizes = [0, 1, 2, 3, 5];
-
-    // Calculate the total probability (should sum to 1)
-    const totalProbability = probabilities.reduce((acc, prob) => acc + prob, 0);
-
-    if (Math.abs(totalProbability - 1) > 0.001) {
-        throw new Error("Invalid probabilities. They should sum up to 1.");
-    }
-
-    const results = [];
-    let totalWinnings = 0;
-
-    for (let entry = 0; entry < numEntries; entry++) {
-        const randomValue = Math.random();
-        let cumulativeProbability = 0;
-        let result = 0; 
-
-        for (let i = 0; i < probabilities.length; i++) {
-            cumulativeProbability += probabilities[i];
-            if (randomValue <= cumulativeProbability) {
-                result = prizes[i];
-                break; 
-            }
-        }
-
-        results.push(result); 
-        totalWinnings += result; 
-    }
-
-    return {
-        totalWinnings: totalWinnings,
-        entryResults: results
-    };
-}
-
 
 // Calculate the prize amounts for all entries
-lotteryResults = miniLottery();
+lotteryResults = randomlyChooseElements(numEntries);
 
 // Display the total winnings
 console.log(`Total Winnings: ${lotteryResults.totalWinnings} points`);
-console.log("Results for each entry:");
+console.log(arrayChances.length);
+//console.log("Results for each entry:");
+//console.log(lotteryResults.entryResults);
 
-var awardsNumber = document.getElementById('awards-number');
+var awardsNumber = document.getElementById("awards-number");
 awardsNumber.innerHTML = lotteryResults.totalWinnings;
 
-
-useAwards.addEventListener('click', function(event) {
-    window.location.href = `results.html?entries=${lotteryResults.totalWinnings}`;
+useAwards.addEventListener("click", function (event) {
+  window.location.href = `results.html?entries=${lotteryResults.totalWinnings}`;
 });
 
 function startTimer() {
-    let timerDuration = 30;
-    let timerInterval = setInterval(function() {
-        timerDuration--;
+  let timerDuration = 30;
+  let timerInterval = setInterval(function () {
+    timerDuration--;
 
-        if (timerDuration === 0) {
-            clearInterval(timerInterval);
-            window.location.href = 'index.html'
-        }
-    }, 1000);
+    if (timerDuration === 0) {
+      clearInterval(timerInterval);
+      window.location.href = "index.html";
+    }
+  }, 1000);
 }
 
 function printTicket() {
-    console.log('Ticket (to Print)');
-    console.log(ticketTime);
-    console.log(`This will include store location`);
-    console.log(`Total awards: ${lotteryResults.totalWinnings}`);
-    console.log(`This will include coupon information`);
+  console.log("Ticket (to Print)");
+  console.log(ticketTime);
+  console.log(`This will include store location`);
+  console.log(`Total awards: ${lotteryResults.totalWinnings}`);
+  console.log(`This will include coupon information`);
 }
 
+var ticketTime = dayjs().format("dddd, MMMM D YYYY, h:mm:ss a");
 
-var ticketTime = dayjs().format('dddd, MMMM D YYYY, h:mm:ss a');
+const endScreen = document.getElementById("end-screen");
+const awards = document.getElementById("awards");
 
-const endScreen = document.getElementById('end-screen');
-const awards = document.getElementById('awards')
+collectAwards.addEventListener("click", function (event) {
+  awards.style.display = "none";
 
-collectAwards.addEventListener('click', function(event) {
-
-    awards.style.display = 'none';
-
-    endScreen.style.display = 'block';
-    printTicket();
-    startTimer();
+  endScreen.style.display = "block";
+  printTicket();
+  startTimer();
 });
-const returnHome = document.getElementById('return-home');
+const returnHome = document.getElementById("return-home");
 
-returnHome.addEventListener('click', function(event) {
-    event.stopPropagation();
-    window.location.href = 'homescreen.html';
+returnHome.addEventListener("click", function (event) {
+  event.stopPropagation();
+  window.location.href = "homescreen.html";
 });
