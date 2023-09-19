@@ -26,7 +26,7 @@ const entryTable = [
 
 let arrayChances = JSON.parse(localStorage.getItem("arrayChances"));
 
-if (!arrayChances|| []) {
+if (!arrayChances) {
   // If arrayChances doesn't exist in localStorage, create it
   arrayChances = createArrayChances();
   localStorage.setItem("arrayChances", JSON.stringify(arrayChances));
