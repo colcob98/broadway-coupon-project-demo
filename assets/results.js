@@ -27,12 +27,10 @@ const entryTable = [
 let arrayChances = JSON.parse(localStorage.getItem("arrayChances"));
 
 if (!arrayChances) {
-  // If arrayChances doesn't exist in localStorage, create it
   arrayChances = createArrayChances();
   localStorage.setItem("arrayChances", JSON.stringify(arrayChances));
 }
 
-// Display a loading screen with countdown
 const awardsContainer = document.querySelector(".awards-container");
 const loadingContainer = document.querySelector(".loading-container");
 const loadingText = document.getElementById("loading-text");
@@ -48,8 +46,8 @@ function updateCountdown() {
   loadingText.innerHTML = `Loading... <span id="countdown-display">${countdown}s</span>`;
 
   if (countdown < 1) {
-    loadingContainer.style.display = "none"; // Hide loading screen
-    awardsContainer.style.display = "block"; // Show results screen
+    loadingContainer.style.display = "none";
+    awardsContainer.style.display = "block";
     displayResults();
   } else {
     countdown--;
@@ -71,12 +69,8 @@ function createArrayChances() {
     }
   }
 
-  // Save newChances to localStorage
-
   return newChances;
 }
-
-//createArrayChances();
 
 function randomlyChooseElements(numTimes) {
   const randomElements = [];
@@ -109,7 +103,6 @@ function randomlyChooseElements(numTimes) {
     }
   }
 
-  // Save the updated arrayChances to localStorage immediately after modifying it
   localStorage.setItem("arrayChances", JSON.stringify(arrayChances));
 
   return {
@@ -118,12 +111,10 @@ function randomlyChooseElements(numTimes) {
   };
 }
 
-// Define the lottery results object to store the results
 let lotteryResults = null;
 
 function displayResults() {
   if (lotteryResults === null) {
-    // Calculate the prize amounts for all entries and store the results
     lotteryResults = randomlyChooseElements(numEntries);
   }
 
@@ -137,10 +128,8 @@ function displayResults() {
   awardsNumber.textContent = lotteryResults.totalWinnings;
 }
 
-// Calculate the prize amounts for all entries
 lotteryResults = randomlyChooseElements(numEntries);
 
-// Display the total winnings
 console.log(`Total Winnings: ${lotteryResults.totalWinnings} points`);
 console.log(arrayChances.length);
 //console.log("Results for each entry:");
