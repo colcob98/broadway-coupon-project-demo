@@ -91,8 +91,9 @@ function randomlyChooseElements(numTimes) {
       randomElements.push(arrayChances[i]);
       randomElementsTotal += arrayChances[i];
     }
-
-    createArrayChances();
+    localStorage.removeItem("arrayChances");
+    console.log(arrayChances.length);
+    arrayChances = createArrayChances();
     for (let i = 0; i < remainder; i++) {
       const randomIndex = Math.floor(Math.random() * arrayChances.length);
       const randomElement = arrayChances[randomIndex];
@@ -101,9 +102,11 @@ function randomlyChooseElements(numTimes) {
 
       arrayChances.splice(randomIndex, 1);
     }
+    console.log(arrayChances.length)
   }
 
   localStorage.setItem("arrayChances", JSON.stringify(arrayChances));
+  console.log(arrayChances.length)
 
   return {
     totalWinnings: randomElementsTotal,
