@@ -36,7 +36,7 @@ entryForm.addEventListener('submit', function (event) {
     } else {
         event.preventDefault();
         numEntries = parseInt(entryNum.value);
-        window.location.href = `results.html?entries=${numEntries * 100}`;
+        window.location.href = `results.html?entries=${numEntries * 4}`;
     }
 });
 

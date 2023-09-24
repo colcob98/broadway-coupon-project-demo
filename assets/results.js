@@ -1,27 +1,28 @@
 const entryTable = [
-  { entries: 1, points: 2400 },
-  { entries: 2, points: 1199 },
-  { entries: 1, points: 300 },
-  { entries: 12, points: 200 },
-  { entries: 22, points: 150 },
-  { entries: 5, points: 100 },
-  { entries: 4, points: 90 },
-  { entries: 108, points: 80 },
-  { entries: 8, points: 75 },
-  { entries: 8, points: 70 },
-  { entries: 10, points: 60 },
-  { entries: 315, points: 50 },
-  { entries: 25, points: 45 },
-  { entries: 175, points: 40 },
-  { entries: 350, points: 30 },
-  { entries: 1150, points: 25 },
-  { entries: 1215, points: 20 },
-  { entries: 737, points: 15 },
-  { entries: 1375, points: 10 },
-  { entries: 7000, points: 5 },
-  { entries: 17000, points: 2 },
-  { entries: 23000, points: 1 },
-  { entries: 197477, points: 0 },
+  { entries: 1, points: 50000 },
+  { entries: 2, points: 29975 },
+  { entries: 1, points: 10000 },
+  { entries: 1, points: 7500 },
+  { entries: 12, points: 5000 },
+  { entries: 22, points: 3750 },
+  { entries: 5, points: 2500 },
+  { entries: 4, points: 2250 },
+  { entries: 108, points: 2000 },
+  { entries: 8, points: 1875 },
+  { entries: 8, points: 1750 },
+  { entries: 10, points: 1500 },
+  { entries: 315, points: 1250 },
+  { entries: 25, points: 1125 },
+  { entries: 175, points: 1000 },
+  { entries: 350, points: 750 },
+  { entries: 1150, points: 625 },
+  { entries: 1215, points: 500 },
+  { entries: 737, points: 375 },
+  { entries: 1375, points: 250 },
+  { entries: 7000, points: 125 },
+  { entries: 17000, points: 50 },
+  { entries: 23000, points: 25 },
+  { entries: 197476, points: 0 },
 ];
 
 let arrayChances = JSON.parse(localStorage.getItem("arrayChances"));
@@ -142,7 +143,7 @@ var awardsNumber = document.getElementById("awards-number");
 awardsNumber.innerHTML = lotteryResults.totalWinnings;
 
 useAwards.addEventListener("click", function (event) {
-  window.location.href = `results.html?entries=${lotteryResults.totalWinnings}`;
+  window.location.href = `results.html?entries=${lotteryResults.totalWinnings / 25}`;
 });
 
 function startTimer() {
