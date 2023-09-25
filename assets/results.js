@@ -5,15 +5,15 @@ const entryTable = [
   { entries: 1, points: 7500 },
   { entries: 12, points: 5000 },
   { entries: 22, points: 3750 },
-  { entries: 5, points: 2500 },
+  { entries: 11, points: 2500 },
   { entries: 4, points: 2250 },
-  { entries: 108, points: 2000 },
+  { entries: 158, points: 2000 },
   { entries: 8, points: 1875 },
   { entries: 8, points: 1750 },
   { entries: 10, points: 1500 },
   { entries: 315, points: 1250 },
   { entries: 25, points: 1125 },
-  { entries: 175, points: 1000 },
+  { entries: 275, points: 1000 },
   { entries: 350, points: 750 },
   { entries: 1150, points: 625 },
   { entries: 1215, points: 500 },
@@ -22,7 +22,7 @@ const entryTable = [
   { entries: 7000, points: 125 },
   { entries: 17000, points: 50 },
   { entries: 23000, points: 25 },
-  { entries: 197476, points: 0 },
+  { entries: 197320, points: 0 },
 ];
 
 let arrayChances = JSON.parse(localStorage.getItem("arrayChances"));
