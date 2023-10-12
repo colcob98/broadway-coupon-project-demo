@@ -4,3 +4,5 @@
 /package-lock.json
 /test.html
 /test.js
+/.vscode
+/index.js
