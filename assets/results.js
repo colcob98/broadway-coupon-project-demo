@@ -5,15 +5,15 @@ const entryTable = [
   { entries: 1, points: 7500 },
   { entries: 12, points: 5000 },
   { entries: 22, points: 3750 },
-  { entries: 5, points: 2500 },
+  { entries: 2, points: 2500 },
   { entries: 4, points: 2250 },
-  { entries: 108, points: 2000 },
+  { entries: 58, points: 2000 },
   { entries: 8, points: 1875 },
   { entries: 8, points: 1750 },
   { entries: 10, points: 1500 },
-  { entries: 315, points: 1250 },
-  { entries: 25, points: 1125 },
-  { entries: 175, points: 1000 },
+  { entries: 215, points: 1250 },
+  { entries: 15, points: 1125 },
+  { entries: 75, points: 1000 },
   { entries: 350, points: 750 },
   { entries: 1150, points: 625 },
   { entries: 1215, points: 500 },
@@ -22,7 +22,7 @@ const entryTable = [
   { entries: 7000, points: 125 },
   { entries: 17000, points: 50 },
   { entries: 23000, points: 25 },
-  { entries: 197476, points: 0 },
+  { entries: 197739, points: 0 },
 ];
 
 let arrayChances = JSON.parse(localStorage.getItem("arrayChances-v1"));
@@ -42,6 +42,9 @@ let collectAwards = document.getElementById("collect-awards");
 
 var urlParams = new URLSearchParams(window.location.search);
 var numEntries = parseInt(urlParams.get("entries"));
+
+let initialRollover = numEntries * (11/10);
+let rolloverAccumulater;
 
 function updateCountdown() {
   loadingText.innerHTML = `Loading... <span id="countdown-display">${countdown}s</span>`;
